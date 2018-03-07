@@ -16,6 +16,15 @@ function validateLogin() {
 		data : {user : user,
 		        pass : pass},
 		type : 'POST'
-	});
+	}).done( function(data) {
+		if(data.error == 0) {
+
+		}else {
+			$('#user').parent().addClass('is-invalid');
+			$('#user').parent().find('span').html('');
+			$('#pass').parent().addClass('is-invalid');
+			$('#pass').parent().find('span').html(data.msj);
+		}
+	})
 
 }
