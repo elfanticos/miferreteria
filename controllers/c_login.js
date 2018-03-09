@@ -1,7 +1,8 @@
 'use strict'
 
 var m_login = require('../models/m_login'),
-    util    = require('../helpers/util_helper');
+    util    = require('../helpers/util_helper'),
+    config  = require('../helpers/constants_helper');
 
 function index(req,res) {
 	var locals = { title : 'Bienvenidos | Login'};
@@ -21,9 +22,15 @@ function validarLogin(req,res) {
 	promise
 		.then((resolved,rejected) => {
 			if(resolved.length > 0) {
-				console.log('lleno');
+				res.send({
+					error : config.EXIT_SUCCESS,
+					url  : req.headers.origin+'/main'
+				});
 			}else {
-				res.send({error : 1 , msj : 'Usuario o contraseña incorrecta.'});
+				res.send({
+					error : config.EXIT_ERROR , 
+					msj   : 'Usuario o contraseña incorrecta.'
+				});
 			}
     	})
     	.catch((err) => {

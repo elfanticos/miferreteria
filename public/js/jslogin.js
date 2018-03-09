@@ -18,7 +18,7 @@ function validateLogin() {
 		type : 'POST'
 	}).done( function(data) {
 		if(data.error == 0) {
-
+			location.href = data.url;
 		}else {
 			$('#user').parent().addClass('is-invalid');
 			$('#user').parent().find('span').html('');

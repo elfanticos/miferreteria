@@ -3,13 +3,17 @@ var express    = require('express'),
 	favicon    = require('serve-favicon'),
 	bodyParser = require('body-parser'),
 	morgan     = require('morgan'),
-	routes     = require('./routes/r_login'),
 	path       = require('path'),
 	faviconURL = path.join(__dirname, 'public/img', 'favicon-ferreteria.png'),
 	publicDir  = express.static(`${__dirname}/public`),
 	viewDir    = `${__dirname}/views`,
 	port       = (process.env.PORT || 3000),
 	app        = express();
+
+
+//ROUTES
+var r_login    = require('./routes/r_login'),
+    r_main     = require('./routes/r_main');
 
 app
 	.set('views',viewDir)
@@ -22,6 +26,8 @@ app
 	.use(bodyParser.urlencoded({extended : false}))
 	.use(publicDir)
 	.use(morgan('dev'))
-	.use('/',routes);
+	.use('/',r_login)
+	.use('/',r_main)
+
 
 module.exports = app;
